@@ -149,7 +149,7 @@
                     "alignment": "left",
                     "font": "var(--font-body--family)",
                     "font_size": "1rem",
-                    "weight": "800",
+                    "weight": "900",
                     "line_height": "normal",
                     "letter_spacing": "normal",
                     "case": "none",
