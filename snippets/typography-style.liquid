@@ -60,9 +60,9 @@
       {%- endif -%}
     {%- endif -%}
     {%- if settings.weight != blank -%}
-      --font-weight: {{ settings.weight }};
+       --font-weight: {{ settings.weight }};
     {% else %}
-      --font-weight: {{ settings.font | replace: 'family', 'weight' }};
+       --font-weight: {{ settings.font | replace: 'family', 'weight' }};
     {%- endif -%}
     --font-family: {{ settings.font }};
     --text-transform: {{ settings.case }};

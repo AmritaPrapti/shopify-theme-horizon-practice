@@ -2334,7 +2334,7 @@ product-price.text-block:is(.h1, .h2, .h3, .h4, .h5, .h6) > *:not(.tax-note) {
 .custom-typography,
 .custom-typography > * {
   font-family: var(--font-family);
-  font-weight: var(--weight);
+  font-weight: var(--font-weight);
   text-transform: var(--text-transform);
   text-wrap: var(--text-wrap);
   line-height: var(--line-height);
