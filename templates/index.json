@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "hero_jVaWmY": {
       "type": "hero",
@@ -65,6 +66,7 @@
         "custom_mobile_media": false,
         "media_type_1_mobile": "image",
         "media_type_2_mobile": "image",
+        "link": "",
         "open_in_new_tab": false,
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -212,7 +214,7 @@
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "rte",
+                "type_preset": "custom",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
                 "line_height": "normal",
@@ -235,6 +237,9 @@
               "name": "t:names.product_price",
               "settings": {
                 "show_sale_price_first": true,
+                "show_sale_percentage": false,
+                "color_scheme": "",
+                "sale_badge_radius": 4,
                 "show_installments": false,
                 "show_tax_info": false,
                 "type_preset": "h6",
@@ -242,6 +247,7 @@
                 "alignment": "left",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
+                "weight": "400",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
