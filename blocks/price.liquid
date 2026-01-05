@@ -50,16 +50,11 @@
   {% render 'price',
     show_unit_price: true,
     product_resource: product_resource,
-    show_sale_price_first: block_settings.show_sale_price_first
+    show_sale_price_first: block_settings.show_sale_price_first,
+    show_sale_percentage: block_settings.show_sale_percentage,
+    sale_percentage_color_scheme: block_settings.color_scheme,
+    sale_badge_radius: block_settings.sale_badge_radius
   %}
-
-  {% if block_settings.show_sale_percentage %}
-    {% render 'sale-percentage', 
-      product_resource: product_resource,
-      color_scheme: block_settings.color_scheme 
-    %}
-    
-  {% endif %}
 
   {% if block_settings.show_tax_info %}
     <div class="tax-note">
@@ -154,6 +149,16 @@
       "label": "Color scheme",
       "default": "scheme-3",
       "visible_if": "{{ block.settings.show_sale_percentage == true }}"
+    },
+    {
+      "type": "range",
+      "id": "sale_badge_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Sale badge border radius",
+      "default": 4
     },
     {
       "type": "checkbox",

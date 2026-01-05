@@ -4,6 +4,7 @@
 
   @param {product} product_resource - The product to calculate sale percentage for
   @param {string} [color_scheme] - Optional color scheme for the badge
+  @param {number} [border_radius] - Optional border radius for the badge
 {%- enddoc -%}
 
 {%- liquid
@@ -24,9 +25,9 @@
 -%}
 
 {%- if show_sale_percentage -%}
-  <div class="sale-percentage-badge {{ color_scheme }} color-{{ color_scheme }}">
+  <div class="sale-percentage-badge {{ color_scheme }} color-{{ color_scheme }}" style="--border-radius: {{ border_radius | default: 4 }}px;">
     <span class="sale-percentage-text">
-      -{{ sale_percentage }}%
+      Save {{ sale_percentage }}%
     </span>
   </div>
 {%- endif -%}
@@ -38,7 +39,6 @@
     align-items: center;
     justify-content: center;
     padding: 0.25em 0.75em;
-    margin-top: 0.5em;
     border-radius: var(--border-radius);
   }
 
