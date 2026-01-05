@@ -137,7 +137,7 @@
                 "price_tVjtKg": {
                   "type": "price",
                   "settings": {
-                    "show_sale_price_first": true,
+                    "show_sale_price_first": false,
                     "show_installments": false,
                     "show_tax_info": false,
                     "type_preset": "custom",
@@ -145,7 +145,7 @@
                     "alignment": "left",
                     "font": "var(--font-body--family)",
                     "font_size": "1rem",
-                    "font_weight": "700",
+                    "weight": "700",
                     "line_height": "normal",
                     "letter_spacing": "normal",
                     "case": "none",
@@ -370,7 +370,7 @@
                 "alignment": "left",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
-                "font_weight": "400",
+                "weight": "400",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
