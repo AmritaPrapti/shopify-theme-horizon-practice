@@ -60,7 +60,7 @@
       on:click="/toggle"
     >
       <span class="svg-wrapper header-drawer-icon header-drawer-icon--open">
-        {{- 'icon-menu.svg' | inline_asset_content -}}
+        {{- 'icon-menu-custom.svg' | inline_asset_content -}}
       </span>
       <span class="svg-wrapper header-drawer-icon header-drawer-icon--close">
         {{- 'icon-close.svg' | inline_asset_content -}}
@@ -772,8 +772,8 @@
 
   .header__icon--summary .header-drawer-icon {
     margin: auto;
-    width: var(--icon-size-xs);
-    height: var(--icon-size-xs);
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
   }
 
   .header__drawer {
