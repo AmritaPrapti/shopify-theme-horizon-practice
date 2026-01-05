@@ -53,6 +53,14 @@
     show_sale_price_first: block_settings.show_sale_price_first
   %}
 
+  {% if block_settings.show_sale_percentage %}
+    {% render 'sale-percentage', 
+      product_resource: product_resource,
+      color_scheme: block_settings.color_scheme 
+    %}
+    
+  {% endif %}
+
   {% if block_settings.show_tax_info %}
     <div class="tax-note">
       {%- if cart.duties_included and cart.taxes_included -%}
@@ -133,6 +141,19 @@
       "id": "show_sale_price_first",
       "label": "t:settings.show_sale_price_first",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sale_percentage",
+      "label": "Show sale percentage",
+      "default": false
+    },
+     {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-3",
+      "visible_if": "{{ block.settings.show_sale_percentage == true }}"
     },
     {
       "type": "checkbox",
@@ -343,6 +364,14 @@
         {
           "value": "700",
           "label": "t:options.bold"
+        },
+        {
+          "value": "800",
+          "label": "t:options.extrabold"
+        },
+        {
+          "value": "900",
+          "label": "t:options.black"
         }
       ],
       "default": "400",
