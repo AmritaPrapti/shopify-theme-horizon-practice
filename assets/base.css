@@ -821,7 +821,7 @@ body,
 h1,
 .h1.h1,
 .text-block.h1 > * {
-  font-family: var(--font-h1--family);
+  font-family: var(--font-h1--family) !important;
   font-style: var(--font-h1--style);
   font-weight: var(--font-h1--weight);
   font-size: var(--font-h1--size);
@@ -842,7 +842,7 @@ h1,
 h2,
 .h2.h2,
 .text-block.h2 > * {
-  font-family: var(--font-h2--family);
+  font-family: var(--font-h2--family) !important;
   font-style: var(--font-h2--style);
   font-weight: var(--font-h2--weight);
   font-size: var(--font-h2--size);
@@ -864,7 +864,7 @@ h3,
 .h3,
 .h3.h3,
 .text-block.h3 > * {
-  font-family: var(--font-h3--family);
+  font-family: var(--font-h3--family) !important;
   font-style: var(--font-h3--style);
   font-weight: var(--font-h3--weight);
   font-size: var(--font-h3--size);
@@ -885,7 +885,7 @@ h3,
 h4,
 .h4.h4,
 .text-block.h4 > * {
-  font-family: var(--font-h4--family);
+  font-family: var(--font-h4--family) !important;
   font-style: var(--font-h4--style);
   font-weight: var(--font-h4--weight);
   font-size: var(--font-h4--size);
@@ -906,7 +906,7 @@ h4,
 h5,
 .h5.h5,
 .text-block.h5 > * {
-  font-family: var(--font-h5--family);
+  font-family: var(--font-h5--family) !important;
   font-style: var(--font-h5--style);
   font-weight: var(--font-h5--weight);
   font-size: var(--font-h5--size);
@@ -927,7 +927,7 @@ h5,
 h6,
 .h6.h6,
 .text-block.h6 > * {
-  font-family: var(--font-h6--family);
+  font-family: var(--font-h6--family) !important;
   font-style: var(--font-h6--style);
   font-weight: var(--font-h6--weight);
   font-size: var(--font-h6--size);
@@ -1388,6 +1388,7 @@ button.shopify-payment-button__button--unbranded {
   font-family: var(--button-font-family-primary);
   text-transform: var(--button-text-case-primary);
   border-radius: var(--style-border-radius-buttons-primary);
+  font-weight: var(--button-font-weight-primary);
 }
 
 .button:not(.button-secondary, .button-unstyled) {
@@ -1398,11 +1399,13 @@ button.shopify-payment-button__button--unbranded {
   font-family: var(--button-font-family-secondary);
   text-transform: var(--button-text-case-secondary);
   border-radius: var(--style-border-radius-buttons-secondary);
+  font-weight: var(--button-font-weight-secondary);
 }
 
 button.shopify-payment-button__button--unbranded {
   font-family: var(--button-font-family-primary);
   text-transform: var(--button-text-case-primary);
+  font-weight: var(--button-font-weight-primary);
 }
 
 textarea,

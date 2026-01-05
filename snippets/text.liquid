@@ -216,4 +216,41 @@
   .custom-color > :is(h1, h2, h3, h4, h5, h6, p, *) {
     color: var(--color);
   }
+
+  /* List with check icons */
+  .text-block ul li,
+  .text-block.rte ul li {
+    position: relative;
+    padding-left: 2em;
+    list-style: none;
+    margin-bottom: 10px;
+  }
+
+  .text-block ul li::before,
+  .text-block.rte ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1.25em;
+    height: 1.25em;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .text-block ol li,
+  .text-block.rte ol li {
+    padding-left: 0.5em;
+  }
 {% endstylesheet %}
+
+<style>
+   .text-block ul li::before,
+  .text-block.rte ul li::before{
+     background-image: url("{{ 'check.svg' | asset_url }}");
+  }
+  .text-block ul{
+    padding-left:0;
+  }
+</style>
