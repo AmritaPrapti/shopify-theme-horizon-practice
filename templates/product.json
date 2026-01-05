@@ -121,6 +121,7 @@
                     "font_size": "2.5rem",
                     "line_height": "normal",
                     "letter_spacing": "normal",
+                    "weight": "400",
                     "case": "none",
                     "wrap": "pretty",
                     "color": "",
@@ -159,11 +160,24 @@
                     "padding-inline-end": 0
                   },
                   "blocks": {}
+                },
+                "divider_4Tb8Fa": {
+                  "type": "_divider",
+                  "name": "t:names.divider",
+                  "settings": {
+                    "thickness": 1,
+                    "corner_radius": "square",
+                    "width_percent": 100,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
                 "text_xrnftG",
-                "price_tVjtKg"
+                "price_tVjtKg",
+                "divider_4Tb8Fa"
               ]
             },
             "variant_picker_R3rGDr": {
@@ -192,6 +206,7 @@
                 "font_size": "",
                 "line_height": "normal",
                 "letter_spacing": "normal",
+                "weight": "400",
                 "case": "none",
                 "wrap": "pretty",
                 "color": "",
@@ -281,6 +296,7 @@
             "font_size": "",
             "line_height": "normal",
             "letter_spacing": "normal",
+            "weight": "400",
             "case": "none",
             "wrap": "pretty",
             "color": "",
@@ -340,6 +356,7 @@
                 "font_size": "1rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
+                "weight": "400",
                 "case": "none",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
