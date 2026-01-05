@@ -179,6 +179,14 @@
           "label": "40px"
         },
         {
+          "value": "2.75rem",
+          "label": "42px"
+        },
+        {
+          "value": "2.875rem",
+          "label": "46px"
+        },
+        {
           "value": "3rem",
           "label": "48px"
         },
@@ -250,6 +258,43 @@
         }
       ],
       "default": "normal",
+      "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+    },
+    {
+      "type": "select",
+      "id": "weight",
+      "label": "t:settings.font_weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "t:options.light"
+        },
+        {
+          "value": "400",
+          "label": "t:options.regular"
+        },
+        {
+          "value": "500",
+          "label": "t:options.medium"
+        },
+        {
+          "value": "600",
+          "label": "t:options.semibold"
+        },
+        {
+          "value": "700",
+          "label": "t:options.bold"
+        },
+        {
+          "value": "800",
+          "label": "Extra Bold"
+        },
+        {
+          "value": "900",
+          "label": "t:options.black"
+        }
+      ],
+      "default": "400",
       "visible_if": "{{ block.settings.type_preset == 'custom' }}"
     },
     {
