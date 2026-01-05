@@ -321,6 +321,35 @@
     },
     {
       "type": "select",
+      "id": "font_weight",
+      "label": "t:settings.font_weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "t:options.light"
+        },
+        {
+          "value": "400",
+          "label": "t:options.regular"
+        },
+        {
+          "value": "500",
+          "label": "t:options.medium"
+        },
+        {
+          "value": "600",
+          "label": "t:options.semibold"
+        },
+        {
+          "value": "700",
+          "label": "t:options.bold"
+        }
+      ],
+      "default": "400",
+      "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+    },
+    {
+      "type": "select",
       "id": "line_height",
       "label": "t:settings.line_height",
       "options": [
