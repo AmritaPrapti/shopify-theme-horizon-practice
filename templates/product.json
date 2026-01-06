@@ -640,8 +640,8 @@
                   "settings": {
                     "heading": "Product Description",
                     "open_by_default": false,
-                    "radius": 0,
-                    "icon_background": "#ffffff",
+                    "radius": 43,
+                    "icon_background": "#ffe535",
                     "icon_color": "#000000",
                     "icon": "none",
                     "image_upload": "shopify://shop_images/Vector_10.svg",
@@ -684,8 +684,8 @@
                   "settings": {
                     "heading": "Shipping Information",
                     "open_by_default": false,
-                    "radius": 0,
-                    "icon_background": "#ffffff",
+                    "radius": 39,
+                    "icon_background": "#ffe535",
                     "icon_color": "#000000",
                     "icon": "none",
                     "image_upload": "shopify://shop_images/Vector_9.svg",
@@ -728,8 +728,8 @@
                   "settings": {
                     "heading": "Frequently Asked Questions",
                     "open_by_default": false,
-                    "radius": 0,
-                    "icon_background": "#ffffff",
+                    "radius": 45,
+                    "icon_background": "#ffe535",
                     "icon_color": "#000000",
                     "icon": "none",
                     "image_upload": "shopify://shop_images/Vector_7.svg",
