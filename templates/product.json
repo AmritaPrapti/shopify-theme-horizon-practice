@@ -304,6 +304,8 @@
                   "name": "t:names.video",
                   "settings": {
                     "source": "uploaded",
+                    "video": "shopify://files/videos/3763970-uhd_2160_3840_25fps.mp4",
+                    "video_url": "",
                     "video_autoplay": false,
                     "video_loop": true,
                     "alt": "",
@@ -326,6 +328,8 @@
                   "name": "t:names.video",
                   "settings": {
                     "source": "uploaded",
+                    "video": "shopify://files/videos/5927788-hd_1080_1920_25fps.mp4",
+                    "video_url": "",
                     "video_autoplay": false,
                     "video_loop": true,
                     "alt": "",
@@ -348,6 +352,8 @@
                   "name": "t:names.video",
                   "settings": {
                     "source": "uploaded",
+                    "video": "shopify://files/videos/7011159-hd_1080_1920_25fps.mp4",
+                    "video_url": "",
                     "video_autoplay": false,
                     "video_loop": true,
                     "alt": "",
