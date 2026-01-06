@@ -5,12 +5,15 @@
 {% capture video_style %}
   {%  render 'spacing-style', settings: block_settings %}
   {% render 'border-override', settings: block_settings %}
-   --style-border-color: {{ block_settings.border_color }};
+  {% if block.settings.border != 'none' %}
+    --style-border-color: {{ block_settings.border_color }};
     --style-border-radius: {{ block_settings.border_radius }}px;
     --style-border-top-width: {{ block_settings.border_top_width }}px;
     --style-border-bottom-width: {{ block_settings.border_bottom_width }}px;
     --style-border-left-width: {{ block_settings.border_left_width }}px;
     --style-border-right-width: {{ block_settings.border_right_width }}px;
+  {% endif %}
+   
    --size-style-width: {{ block_settings.custom_width }}%; --size-style-width-mobile: {{ block_settings.custom_width_mobile }}%;
    --size-style-aspect-ratio: {% if block_settings.source == 'uploaded' %}{{ block_settings.video.aspect_ratio | default: 'auto' }}{% elsif block_settings.cover_image == blank %}{{ block_settings.aspect_ratio }}{% else %}auto{% endif %};
 {% endcapture %}
