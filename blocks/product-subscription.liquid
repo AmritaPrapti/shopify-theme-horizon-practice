@@ -1,0 +1,634 @@
+<div class="product-subscription-wrapper">
+  <style>
+    .product-subscription-wrapper {
+      padding-block-start: {{ block.settings.padding-block-start | default: 0 }}px;
+      padding-block-end: {{ block.settings.padding-block-end | default: 0 }}px;
+      padding-inline-start: {{ block.settings.padding-inline-start | default: 0 }}px;
+      padding-inline-end: {{ block.settings.padding-inline-end | default: 0 }}px;
+      --border-color: {{ block.settings.border_color | default: '#ddd' }};
+      --border-color-hover: {{ block.settings.border_color_hover | default: '#bbb' }};
+      --selected-border-color: {{ block.settings.selected_border_color | default: '#FFD700' }};
+      --selected-bg-color: {{ block.settings.selected_bg_color | default: '#FFFEF0' }};
+      --radio-selected-color: {{ block.settings.radio_selected_color | default: '#FFD700' }};
+      --badge-bg-color: {{ block.settings.badge_bg_color | default: '#FFD700' }};
+      --discount-percentage: {{ block.settings.subscription_discount | default: 15 }};
+    }
+
+    .subscription-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .subscription-header h3 {
+      margin: 0;
+
+    font-family: {{ block.settings.heading_font }};
+    font-size: {{ block.settings.heading_font_size }};
+    font-weight: {{ block.settings.heading_weight }};
+    text-transform: {{ block.settings.heading_case }};
+    color: {{ block.settings.heading_color }};
+
+    }
+
+    .subscription-details-link {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.2s;
+      text-decoration: underline;
+    }
+
+    .subscription-details-link::before {
+      content: "?";
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background-color: #999;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .subscription-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .subscription-option {
+      position: relative;
+      border: 1px solid var(--border-color);
+      border-bottom-width: 6px;
+      border-radius: 8px;
+      padding: 16px 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .subscription-option:hover {
+      border-color: var(--border-color-hover);
+    }
+
+    .subscription-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .subscription-option input[type="radio"]:checked ~ .option-content {
+      font-weight: 600;
+    }
+
+    .subscription-option input[type="radio"]:checked + .custom-radio {
+      border-color: #000;
+      background-color: white;
+      border-width: 2px;
+    }
+
+    .subscription-option input[type="radio"]:checked + .custom-radio::after {
+      opacity: 1;
+    }
+
+    .subscription-option.selected {
+      border-color: var(--selected-border-color);
+      background-color: var(--selected-bg-color);
+    }
+
+    .custom-radio {
+      position: relative;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border-color);
+      border-radius: 50%;
+      margin-right: 12px;
+      flex-shrink: 0;
+      transition: all 0.2s;
+      background-color: white;
+    }
+
+    .custom-radio::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--radio-selected-color);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .option-left {
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+
+    .option-content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .option-label {
+
+        font-family: {{ block.settings.label_font }};
+        font-size: {{ block.settings.label_font_size }};
+        font-weight: {{ block.settings.label_weight }};
+        text-transform: {{ block.settings.label_case }};
+        color: {{ block.settings.label_color }};
+      letter-spacing: 0.3px;
+    }
+
+    .save-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .option-pricing {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+
+    .original-price {
+      font-size: 14px;
+      color: #999;
+      text-decoration: line-through;
+    }
+
+    .current-price {
+      font-size: 16px;
+      font-weight: 700;
+    }
+  </style>
+
+  <div class="subscription-header">
+    <h3 class="type-preset--{{ block.settings.heading_type_preset | default: 'h3' }}">
+      {{ block.settings.heading | default: 'FREQUENCY' }}
+    </h3>
+    {% if block.settings.subscription_details_url != blank %}
+      <a href="{{ block.settings.subscription_details_url }}" class="subscription-details-link">
+        Subscription Details
+      </a>
+    {% endif %}
+  </div>
+
+  <div class="subscription-options color-{{ block.settings.color_scheme | default: 'scheme-1' }}">
+    <!-- One Time Purchase Option -->
+    <label class="subscription-option" id="onetime-option">
+      <input
+        type="radio"
+        name="purchase_option"
+        value="onetime"
+        checked
+        data-price="{{ product.selected_or_first_available_variant.price | money_without_trailing_zeros }}"
+      >
+      <span class="custom-radio"></span>
+      <div class="option-left">
+        <div class="option-content">
+          <span class="option-label type-preset--{{ block.settings.label_type_preset | default: 'rte' }}"
+            >One Time Purchase</span
+          >
+        </div>
+      </div>
+      <div class="option-pricing">
+        <span class="current-price">{{ product.selected_or_first_available_variant.price | money }}</span>
+      </div>
+    </label>
+
+    <!-- Subscribe Option -->
+    <label class="subscription-option" id="subscribe-option">
+      <input
+        type="radio"
+        name="purchase_option"
+        value="subscription"
+        {% assign discount_decimal = block.settings.subscription_discount | default: 15 | times: 0.01 %}
+        {% assign multiplier = 1 | minus: discount_decimal %}
+        data-price="{{ product.selected_or_first_available_variant.price | times: multiplier | money_without_trailing_zeros }}"
+        data-discount="{{ block.settings.subscription_discount | default: 15 }}"
+      >
+      <span class="custom-radio"></span>
+      <div class="option-left">
+        <div class="option-content">
+          <span class="option-label type-preset--{{ block.settings.label_type_preset | default: 'rte' }}"
+            >Subscribe</span
+          >
+          <span class="save-badge color-{{ block.settings.badge_color_scheme | default: 'scheme-1' }}"
+            >Save {{ block.settings.subscription_discount | default: 15 }}%</span
+          >
+        </div>
+      </div>
+      <div class="option-pricing">
+        <span class="original-price">{{ product.selected_or_first_available_variant.price | money }}</span>
+        <span class="current-price">
+          {% assign discount_decimal = block.settings.subscription_discount | default: 15 | times: 0.01 %}
+          {% assign multiplier = 1 | minus: discount_decimal %}
+          {% assign discounted_price = product.selected_or_first_available_variant.price | times: multiplier %}
+          {{ discounted_price | money }}
+        </span>
+      </div>
+    </label>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const options = document.querySelectorAll('.subscription-option');
+      const radioInputs = document.querySelectorAll('input[name="purchase_option"]');
+
+      radioInputs.forEach(function (radio) {
+        radio.addEventListener('change', function () {
+          options.forEach((opt) => opt.classList.remove('selected'));
+          if (this.checked) {
+            this.closest('.subscription-option').classList.add('selected');
+          }
+        });
+      });
+
+      // Set initial state
+      const checkedRadio = document.querySelector('input[name="purchase_option"]:checked');
+      if (checkedRadio) {
+        checkedRadio.closest('.subscription-option').classList.add('selected');
+      }
+    });
+  </script>
+</div>
+
+{% schema %}
+{
+  "name": "Product Subscription",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "FREQUENCY"
+    },
+    {
+      "type": "url",
+      "id": "subscription_details_url",
+      "label": "Subscription Details Link"
+    },
+    {
+      "type": "range",
+      "id": "subscription_discount",
+      "label": "Subscription Discount (%)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "%",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "t:content.typography"
+    },
+
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "options": [
+        {
+          "value": "var(--font-body--family)",
+          "label": "t:options.body"
+        },
+        {
+          "value": "var(--font-subheading--family)",
+          "label": "t:options.subheading"
+        },
+        {
+          "value": "var(--font-heading--family)",
+          "label": "t:options.heading"
+        },
+        {
+          "value": "var(--font-accent--family)",
+          "label": "t:options.accent"
+        }
+      ],
+      "default": "var(--font-heading--family)"
+    },
+    {
+      "type": "select",
+      "id": "heading_font_size",
+      "label": "Heading Size",
+      "options": [
+        {
+          "value": "",
+          "label": "t:options.default"
+        },
+        {
+          "value": "0.625rem",
+          "label": "10px"
+        },
+        {
+          "value": "0.75rem",
+          "label": "12px"
+        },
+        {
+          "value": "0.875rem",
+          "label": "14px"
+        },
+        {
+          "value": "1rem",
+          "label": "16px"
+        },
+        {
+          "value": "1.125rem",
+          "label": "18px"
+        },
+        {
+          "value": "1.25rem",
+          "label": "20px"
+        },
+        {
+          "value": "1.5rem",
+          "label": "24px"
+        }
+      ],
+      "default": "0.875rem"
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading Font Weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "t:options.light"
+        },
+        {
+          "value": "400",
+          "label": "t:options.regular"
+        },
+        {
+          "value": "500",
+          "label": "t:options.medium"
+        },
+        {
+          "value": "600",
+          "label": "t:options.semibold"
+        },
+        {
+          "value": "700",
+          "label": "t:options.bold"
+        },
+        {
+          "value": "800",
+          "label": "Extra Bold"
+        },
+        {
+          "value": "900",
+          "label": "t:options.black"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "select",
+      "id": "heading_case",
+      "label": "Heading Case",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:options.default"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:options.uppercase"
+        }
+      ],
+      "default": "uppercase"
+    },
+
+    {
+      "type": "select",
+      "id": "label_font",
+      "label": "Label Font",
+      "options": [
+        {
+          "value": "var(--font-body--family)",
+          "label": "t:options.body"
+        },
+        {
+          "value": "var(--font-subheading--family)",
+          "label": "t:options.subheading"
+        },
+        {
+          "value": "var(--font-heading--family)",
+          "label": "t:options.heading"
+        },
+        {
+          "value": "var(--font-accent--family)",
+          "label": "t:options.accent"
+        }
+      ],
+      "default": "var(--font-body--family)"
+    },
+    {
+      "type": "select",
+      "id": "label_font_size",
+      "label": "Label Size",
+      "options": [
+        {
+          "value": "",
+          "label": "t:options.default"
+        },
+        {
+          "value": "0.625rem",
+          "label": "10px"
+        },
+        {
+          "value": "0.75rem",
+          "label": "12px"
+        },
+        {
+          "value": "0.875rem",
+          "label": "14px"
+        },
+        {
+          "value": "1rem",
+          "label": "16px"
+        },
+        {
+          "value": "1.125rem",
+          "label": "18px"
+        },
+        {
+          "value": "1.25rem",
+          "label": "20px"
+        }
+      ],
+      "default": "0.875rem"
+    },
+    {
+      "type": "select",
+      "id": "label_weight",
+      "label": "Label Font Weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "t:options.light"
+        },
+        {
+          "value": "400",
+          "label": "t:options.regular"
+        },
+        {
+          "value": "500",
+          "label": "t:options.medium"
+        },
+        {
+          "value": "600",
+          "label": "t:options.semibold"
+        },
+        {
+          "value": "700",
+          "label": "t:options.bold"
+        },
+        {
+          "value": "800",
+          "label": "Extra Bold"
+        },
+        {
+          "value": "900",
+          "label": "t:options.black"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "select",
+      "id": "label_case",
+      "label": "Label Case",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:options.default"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:options.uppercase"
+        }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#ddd"
+    },
+    {
+      "type": "color",
+      "id": "border_color_hover",
+      "label": "Border Color (Hover)",
+      "default": "#bbb"
+    },
+    {
+      "type": "color",
+      "id": "selected_border_color",
+      "label": "Selected Border Color",
+      "default": "#FFD700"
+    },
+    {
+      "type": "color",
+      "id": "selected_bg_color",
+      "label": "Selected Background Color",
+      "default": "#FFFEF0"
+    },
+    {
+      "type": "color",
+      "id": "radio_selected_color",
+      "label": "Radio Button Selected Color",
+      "default": "#FFD700"
+    },
+    {
+      "type": "color_scheme",
+      "id": "badge_color_scheme",
+      "label": "Badge Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Subscription",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
