@@ -35,7 +35,7 @@
       position: relative;
       border: 1px solid {{ block.settings.border_color | default: '#000' }};
       border-radius: {{ block.settings.corner_radius | default: 8 }}px;
-      padding: 16px;
+      padding: 8px;
       cursor: pointer;
       transition: all 0.2s;
       display: flex;
@@ -109,7 +109,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      margin-bottom: 12px;
+      {% comment %} margin-bottom: 12px; {% endcomment %}
     }
 
     .bundle-original-price {
