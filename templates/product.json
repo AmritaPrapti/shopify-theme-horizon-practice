@@ -349,7 +349,7 @@
               "name": "t:names.group",
               "settings": {
                 "content_direction": "row",
-                "vertical_on_mobile": true,
+                "vertical_on_mobile": false,
                 "horizontal_alignment": "flex-start",
                 "vertical_alignment": "center",
                 "align_baseline": false,
@@ -389,7 +389,7 @@
                   "name": "t:names.group",
                   "settings": {
                     "content_direction": "row",
-                    "vertical_on_mobile": true,
+                    "vertical_on_mobile": false,
                     "horizontal_alignment": "flex-start",
                     "vertical_alignment": "center",
                     "align_baseline": false,
@@ -474,13 +474,13 @@
                   "name": "t:names.group",
                   "settings": {
                     "content_direction": "row",
-                    "vertical_on_mobile": true,
+                    "vertical_on_mobile": false,
                     "horizontal_alignment": "flex-start",
                     "vertical_alignment": "center",
                     "align_baseline": false,
                     "horizontal_alignment_flex_direction_column": "flex-start",
                     "vertical_alignment_flex_direction_column": "center",
-                    "gap": 12,
+                    "gap": 6,
                     "width": "fill",
                     "custom_width": 100,
                     "width_mobile": "fill",
