@@ -2,7 +2,7 @@
 
 {% assign block_settings = block.settings %}
 <div
-  class="accordion accordion--{{ block.id }} accordion--{{ block_settings.icon }} border-style spacing-style{% if block_settings.inherit_color_scheme == false %} color-{{ block_settings.color_scheme }}{% endif %}{% if block_settings.dividers %} accordion--dividers{% endif %}"
+  class="accordion accordion--{{ block.id }} accordion--{{ block_settings.icon }} border-style spacing-style{% if block_settings.inherit_color_scheme == false %} color-{{ block_settings.color_scheme }}{% endif %}{% if block_settings.row_style == 'dividers' %} accordion--dividers {% elsif block_settings.row_style == 'separate_border' %} accordion--separate-border {% endif %}"
   style="
     --summary-font-family: var(--font-{{ block_settings.type_preset }}--family);
      --summary-font-style: var(--font-{{ block_settings.type_preset }}--style);
@@ -10,8 +10,17 @@
      --summary-font-size: var(--font-{{ block_settings.type_preset }}--size);
      --summary-font-line-height: var(--font-{{ block_settings.type_preset }}--line-height);
      --summary-font-case: var(--font-{{ block_settings.type_preset }}--case);
+      {% if block_settings.row_style == 'separate_border' %}
+        --style-border-color: {{ block_settings.border_color }};
+        --style-border-top-width: {{ block_settings.border_top_width }}px;
+        --style-border-bottom-width: {{ block_settings.border_bottom_width }}px;
+        --style-border-left-width: {{ block_settings.border_left_width }}px;
+        --style-border-right-width: {{ block_settings.border_right_width }}px;
+        --gap-between-rows: {{ block_settings.row_gap }}px;
+        --style-border-radius: {{ block_settings.row_border_radius }}px;
+      {% endif %}
+      {% render 'border-override', settings: block_settings %}
     {% render 'spacing-style', settings: block_settings %}
-    {% render 'border-override', settings: block_settings %}
   "
   {{ block.shopify_attributes }}
 >
@@ -34,9 +43,22 @@
     --show-fallback-borders: 0;
   }
 
+  .accordion--separate-border accordion-custom .details {
+    border-block-start: var(--style-border-top-width) solid var(--style-border-color);
+    border-block-end: var(--style-border-bottom-width) solid var(--style-border-color);
+    border-inline-start: var(--style-border-left-width) solid var(--style-border-color);
+    border-inline-end: var(--style-border-right-width) solid var(--style-border-color);
+    border-radius: var(--style-border-radius);
+    padding-inline: 12px;
+  }
+
   .accordion--dividers:not([class*='color-'])[style*='--border-width: 0'],
   .accordion--dividers:not([class*='color-'])[style*='--border-style: none'] {
     --show-fallback-borders: 1;
+  }
+
+  .accordion--separate-border accordion-custom:not(:last-child) .details {
+    margin-bottom: var(--gap-between-rows);
   }
 
   .accordion--dividers accordion-custom:first-child .details {
@@ -96,10 +118,101 @@
       "default": "caret"
     },
     {
-      "type": "checkbox",
-      "id": "dividers",
-      "label": "t:settings.dividers",
-      "default": true
+      "type": "header",
+      "content": "Row style"
+    },
+    {
+      "type": "select",
+      "id": "row_style",
+      "label": "Separator Style",
+      "options": [
+        {
+          "value": "dividers",
+          "label": "Dividers"
+        },
+        {
+          "value": "separate_border",
+          "label": "Separate Border with Spacing"
+        },
+        {
+          "value": "no_dividers",
+          "label": "No Dividers"
+        }
+      ],
+      "default": "dividers"
+    },
+    {
+      "type": "range",
+      "id": "row_gap",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Row gap",
+      "default": 10,
+      "visible_if": "{{ block.settings.row_style == 'separate_border' }}"
+    },
+    {
+      "type": "range",
+      "id": "row_border_radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 0,
+      "visible_if": "{{ block.settings.row_style == 'separate_border' }}"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#000000",
+      "visible_if": "{{ block.settings.row_style == 'separate_border' }}"
+    },
+    {
+      "type": "range",
+      "id": "border_top_width",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Border top thickness",
+      "default": 1,
+      "visible_if": "{{ block.settings.row_style == 'separate_border' }}"
+    },
+    {
+      "type": "range",
+      "id": "border_bottom_width",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Border bottom thickness",
+      "default": 1,
+      "visible_if": "{{ block.settings.row_style == 'separate_border' }}"
+    },
+    {
+      "type": "range",
+      "id": "border_left_width",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Border left thickness",
+      "default": 1,
+      "visible_if": "{{ block.settings.row_style == 'separate_border' }}"
+    },
+    {
+      "type": "range",
+      "id": "border_right_width",
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Border right thickness",
+      "default": 1,
+      "visible_if": "{{ block.settings.row_style == 'separate_border' }}"
     },
     {
       "type": "select",

@@ -5,6 +5,12 @@
 {% capture video_style %}
   {%  render 'spacing-style', settings: block_settings %}
   {% render 'border-override', settings: block_settings %}
+   --style-border-color: {{ block_settings.border_color }};
+    --style-border-radius: {{ block_settings.border_radius }}px;
+    --style-border-top-width: {{ block_settings.border_top_width }}px;
+    --style-border-bottom-width: {{ block_settings.border_bottom_width }}px;
+    --style-border-left-width: {{ block_settings.border_left_width }}px;
+    --style-border-right-width: {{ block_settings.border_right_width }}px;
    --size-style-width: {{ block_settings.custom_width }}%; --size-style-width-mobile: {{ block_settings.custom_width_mobile }}%;
    --size-style-aspect-ratio: {% if block_settings.source == 'uploaded' %}{{ block_settings.video.aspect_ratio | default: 'auto' }}{% elsif block_settings.cover_image == blank %}{{ block_settings.aspect_ratio }}{% else %}auto{% endif %};
 {% endcapture %}
@@ -12,7 +18,7 @@
 {% if block_settings.source == 'uploaded' %}
   {% render 'video',
     video: block_settings.video,
-    video_class: 'spacing-style size-style border-style',
+    video_class: 'spacing-style size-style border-style-custom',
     video_loop: block_settings.video_loop,
     video_style: video_style,
     video_preview_image: block_settings.video.preview_image,
@@ -23,7 +29,7 @@
   {% render 'video',
     video_from_url: true,
     video: block_settings.video_url.id,
-    video_class: 'spacing-style size-style border-style',
+    video_class: 'spacing-style size-style border-style-custom',
     video_type: block_settings.video_url.type,
     video_style: video_style,
     video_alt: block_settings.alt,
@@ -36,6 +42,13 @@
 {% stylesheet %}
   .placeholder-video {
     aspect-ratio: 5 / 3;
+  }
+  .border-style-custom {
+    border-top: var(--style-border-top-width) solid var(--style-border-color);
+    border-bottom: var(--style-border-bottom-width) solid var(--style-border-color);
+    border-left: var(--style-border-left-width) solid var(--style-border-color);
+    border-right: var(--style-border-right-width) solid var(--style-border-color);
+    border-radius: var(--style-border-radius);
   }
 {% endstylesheet %}
 
@@ -170,13 +183,53 @@
       "default": "none"
     },
     {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#000000",
+      "visible_if": "{{ block.settings.border != 'none' }}"
+    },
+    {
       "type": "range",
-      "id": "border_width",
+      "id": "border_top_width",
       "min": 0,
       "max": 100,
       "step": 1,
       "unit": "px",
-      "label": "t:settings.thickness",
+      "label": "Border top thickness",
+      "default": 1,
+      "visible_if": "{{ block.settings.border != 'none' }}"
+    },
+    {
+      "type": "range",
+      "id": "border_bottom_width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Border bottom thickness",
+      "default": 1,
+      "visible_if": "{{ block.settings.border != 'none' }}"
+    },
+    {
+      "type": "range",
+      "id": "border_left_width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Border left thickness",
+      "default": 1,
+      "visible_if": "{{ block.settings.border != 'none' }}"
+    },
+    {
+      "type": "range",
+      "id": "border_right_width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Border right thickness",
       "default": 1,
       "visible_if": "{{ block.settings.border != 'none' }}"
     },

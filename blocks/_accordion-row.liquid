@@ -23,12 +23,14 @@
         class_name: 'details__icon'
       %}
       {{ block_settings.heading }}
-      <span class="svg-wrapper icon-caret icon-animated">
-        {{- 'icon-caret.svg' | inline_asset_content -}}
-      </span>
-      <span class="svg-wrapper icon-plus">
-        {{- 'icon-plus.svg' | inline_asset_content -}}
-      </span>
+      <div class="icon-custom-design" style="background-color: {{ block_settings.icon_background }}; color: {{ block_settings.icon_color }}; border-radius: {{ block_settings.radius }}px;">
+        <span class="svg-wrapper icon-caret icon-animated" style="margin: 0">
+          {{- 'icon-caret.svg' | inline_asset_content -}}
+        </span>
+        <span class="svg-wrapper icon-plus" style="margin: 0">
+          {{- 'icon-plus.svg' | inline_asset_content -}}
+        </span>
+      </div>
     </summary>
 
     <div class="details-content">
@@ -41,6 +43,15 @@
   .details__icon {
     height: auto;
     margin-inline-end: var(--margin-xs);
+  }
+  .icon-custom-design {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    margin-left: auto;
+    
   }
 {% endstylesheet %}
 
@@ -72,6 +83,28 @@
     {
       "type": "header",
       "content": "t:content.icon"
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Icon Border Radius",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "icon_background",
+      "label": "Icon Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon Color",
+      "default": "#000000"
     },
     {
       "type": "select",
