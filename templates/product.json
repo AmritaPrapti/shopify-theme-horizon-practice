@@ -282,7 +282,7 @@
                   "type": "_accordion-row",
                   "settings": {
                     "heading": "Product Description",
-                    "open_by_default": true,
+                    "open_by_default": false,
                     "icon": "none",
                     "image_upload": "shopify://shop_images/Vector_10.svg",
                     "width": 20
