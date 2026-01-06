@@ -260,7 +260,7 @@
                 "heading_weight": "700",
                 "heading_case": "none",
                 "label_font": "var(--font-body--family)",
-                "label_font_size": "0.875rem",
+                "label_font_size": "0.75rem",
                 "label_weight": "700",
                 "label_case": "none",
                 "option_1_title": "1 month supply",
